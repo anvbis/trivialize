@@ -1,12 +1,18 @@
 # Trivialize
 
-This useful little tool is a byproduct of my exploration into javascript engine fuzzing. Have a
-complicated proof-of-concept and want to simplify it, just run this against it.
+If you have a complex proof-of-concept and want to simplify it, just run this against it.
+
+This useful little tool is a byproduct of my exploration into javascript engine fuzzing. It uses
+many of the same techniques that popular fuzzing tools utilise for corpus minimization, just to an
+extreme degree.
 
 Currently only supports V8, but I plan on adding support for both SpiderMonkey and JavascriptCore
 in the future.
 
 ## Example
+
+Take this rather complicated regression for CVE-2020-16040 (this is very likely fuzzer output),
+for example.
 
 ```js
 /* examples/cve-2020-16040/regression.js */
@@ -45,11 +51,12 @@ __NATIVE__OptimizeFunctionOnNextCall(jit_func);
 jit_func(NaN, undefined).toString();
 ```
 
-```
-$ ./trivialize.js --script examples/cve-2020-16040/regression.js --rename-variables
-```
+Running the tool against the above regression reduces its size (in terms of nodes
+within its AST) by almost 70%, resulting in a much simpler proof-of-concept.
 
 ```
+$ ./trivialize.js --script examples/cve-2020-16040/regression.js --rename-variables
+
 Trivialize v0.0.1 (c) Anvbis
 https://github.com/anvbis/trivialize
 
@@ -83,17 +90,6 @@ function jit_func(arg_1, arg_2) {
 jit_func();
 %OptimizeFunctionOnNextCall(jit_func);
 jit_func();
-```
-
-```
-$ ./bin/d8 examples/cve-2020-16040/output.js --allow-natives-syntax
-```
-
-```
-#
-# Fatal error in ../../src/compiler/simplified-lowering-verifier.cc, line 62
-# SimplifiedLoweringVerifierError: verified type Range(2, 2147483648) of node #51:Int32Sub does 
-  not match with type Range(2, 2147483647) assigned during lowering
 ```
 
 ## Usage
