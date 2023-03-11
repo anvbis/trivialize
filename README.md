@@ -11,7 +11,8 @@ in the future.
 
 ## Example
 
-Take this rather complicated regression for CVE-2020-16040 (re-implemented in modern V8).
+Take this rather complicated regression for CVE-2020-16040 (re-implemented in modern V8). Note that
+this is the original regression test found within [Chromium Issue 1150649](https://crbug.com/1150649).
 
 ```js
 /* examples/cve-2020-16040/regression.js */
