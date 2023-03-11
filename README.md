@@ -11,8 +11,8 @@ in the future.
 
 ## Example
 
-Take this rather complicated regression for CVE-2020-16040 (this is very likely fuzzer output),
-for example.
+Take this rather complicated regression for CVE-2020-16040 (re-implemented in modern V8) which is
+very likely fuzzer output.
 
 ```js
 /* examples/cve-2020-16040/regression.js */
@@ -75,7 +75,8 @@ trivialize: info: 52 nodes at end, 0.00% node reduction
 trivialize: info: finished, total node reduction of 68.48%
 ```
 
-This results in a much simpler proof-of-concept.
+Resulting in a much simpler proof-of-concept (and TurboFan graph, should you decide to
+investigate it further).
 
 ```js
 function jit_func(arg_1, arg_2) {
