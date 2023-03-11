@@ -52,7 +52,7 @@ jit_func(NaN, undefined).toString();
 ```
 
 Running the tool against the above regression reduces its size (in terms of nodes
-within its AST) by almost 70%, resulting in a much simpler proof-of-concept.
+within its AST) by almost 70%, from 165 nodes at the start to only 52 nodes at the end.
 
 ```
 $ ./trivialize.js --script examples/cve-2020-16040/regression.js --rename-variables
@@ -74,6 +74,8 @@ trivialize: info: 52 nodes at end, 0.00% node reduction
 
 trivialize: info: finished, total node reduction of 68.48%
 ```
+
+This results in a much simpler proof-of-concept.
 
 ```js
 function jit_func(arg_1, arg_2) {
