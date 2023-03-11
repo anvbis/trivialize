@@ -3,8 +3,8 @@
 If you have a complex proof-of-concept and want to simplify it, just run this against it.
 
 This useful little tool is a byproduct of my exploration into javascript engine fuzzing. It uses
-many of the same techniques that popular fuzzing tools utilise for corpus minimization, just to an
-extreme degree.
+many of the same techniques that popular fuzzing tools utilise for corpus minimization, just taken
+to an extreme degree.
 
 Currently only supports V8, but I plan on adding support for both SpiderMonkey and JavascriptCore
 in the future.
