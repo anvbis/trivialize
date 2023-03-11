@@ -46,6 +46,8 @@ if (options['rename-variables']) {
   tree = rename_variables(tree);
 }
 
+executor.destroy();
+
 let re = new RegExp('__NATIVE__', 'g');
 let code = escodegen.generate(tree).replace(re, '%');
 
