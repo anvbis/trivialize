@@ -1,5 +1,11 @@
 # Trivialize
 
+This useful little tool is a byproduct of my exploration into javascript engine fuzzing. Have a
+complicated proof-of-concept and want to simplify it, just run this against it.
+
+Currently only supports V8, but I plan on adding support for both SpiderMonkey and JavascriptCore
+in the future.
+
 ## Example
 
 ```js
