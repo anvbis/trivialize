@@ -11,8 +11,7 @@ in the future.
 
 ## Example
 
-Take this rather complicated regression for CVE-2020-16040 (re-implemented in modern V8) which is
-very likely fuzzer output.
+Take this rather complicated regression for CVE-2020-16040 (re-implemented in modern V8).
 
 ```js
 /* examples/cve-2020-16040/regression.js */
@@ -51,8 +50,11 @@ __NATIVE__OptimizeFunctionOnNextCall(jit_func);
 jit_func(NaN, undefined).toString();
 ```
 
-Running the tool against the above regression reduces its size (in terms of nodes
-within its AST) by almost 70%, from 165 nodes at the start to only 52 nodes at the end.
+Running the tool against the above regression will result in it performing several
+passes of the minimizer against the internal reducer suite.
+
+This provides a much simpler proof-of-concept. In this example, the original regression
+has been reduced by almost 70%, from 165 AST nodes at the start, to only 52 at the end.
 
 ```
 $ ./trivialize.js --script examples/cve-2020-16040/regression.js --rename-variables
@@ -74,9 +76,6 @@ trivialize: info: 52 nodes at end, 0.00% node reduction
 
 trivialize: info: finished, total node reduction of 68.48%
 ```
-
-Resulting in a much simpler proof-of-concept (and TurboFan graph, should you decide to
-investigate it further).
 
 ```js
 function jit_func(arg_1, arg_2) {
