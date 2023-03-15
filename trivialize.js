@@ -24,7 +24,7 @@ const options = yargs
  .option('executable', {
   describe: 'Path to d8 executable',
   type: 'string',
-  default: './bin/d8'
+  default: './targets/v8/build/d8'
  })
  .option('output', {
   describe: 'Output script to file',

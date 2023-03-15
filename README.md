@@ -1,18 +1,37 @@
-# Trivialize
+<h1 align="center">Trivialize</h1>
 
 A tool for javascript engine proof-of-concept simplification.
 
+![Demo](docs/demo.gif)
+
 This useful little tool is a byproduct of my exploration into javascript engine fuzzing. It uses
-many of the same techniques that popular fuzzing tools utilise for corpus minimization, just taken
+many of the same techniques that popular fuzzing tools utilise for test corpus minimization, just taken
 to an extreme degree.
 
 Currently only supports V8, but I plan on adding support for both SpiderMonkey and JavascriptCore
 in the future.
 
+
+## Usage
+
+```
+Usage: ./trivialize.js --script <script>
+
+Options:
+  --help              Show help                                        [boolean]
+  --version           Show version number                              [boolean]
+  --script            Target script to reduce                [string] [required]
+  --rename-variables  Attempt to rename variables                      [boolean]
+  --executable        Path to d8 executable
+                                     [string] [default: "./targets/v8/build/d8"]
+  --output            Output script to file                             [string]
+```
+
+
 ## Example
 
 Take this rather complicated regression for CVE-2020-16040 (re-implemented in modern V8). Note that
-this is the original regression test found within [Chromium Issue 1150649](https://crbug.com/1150649).
+this is the original proof-of-concept found within [Chromium Issue 1150649](https://crbug.com/1150649).
 
 ```js
 /* examples/cve-2020-16040/regression.js */
@@ -54,9 +73,6 @@ jit_func(NaN, undefined).toString();
 Running the tool against the above regression will result in it performing several
 passes of the minimizer against the internal reducer suite.
 
-This provides a much simpler proof-of-concept. In this example, the original regression
-has been reduced by almost 70%, from 165 AST nodes at the start, to only 52 at the end.
-
 ```
 $ ./trivialize.js --script examples/cve-2020-16040/regression.js --rename-variables
 
@@ -78,6 +94,9 @@ trivialize: info: 52 nodes at end, 0.00% node reduction
 trivialize: info: finished, total node reduction of 68.48%
 ```
 
+The result of this is a much simpler proof-of-concept. In this example, the original regression
+has been reduced by almost 70%, from 165 AST nodes at the start, to only 52 at the end.
+
 ```js
 function jit_func(arg_1, arg_2) {
     var var_0 = NaN;
@@ -94,21 +113,3 @@ jit_func();
 %OptimizeFunctionOnNextCall(jit_func);
 jit_func();
 ```
-
-## Usage
-
-```
-Usage: ./trivialize.js --script <script>
-
-Options:
-  --help              Show help                                        [boolean]
-  --version           Show version number                              [boolean]
-  --script            Target script to reduce                [string] [required]
-  --rename-variables  Attempt to rename variables                      [boolean]
-  --executable        Path to d8 executable       [string] [default: "./bin/d8"]
-  --output            Output script to file                             [string]
-```
-
-## Installation
-
-Coming soon...

@@ -1,4 +1,4 @@
-bin/
 build/
 node_modules/
 package-lock.json
+targets/v8/x64.debug
