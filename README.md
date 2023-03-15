@@ -4,6 +4,8 @@ A tool for javascript engine proof-of-concept simplification.
 
 ![Demo](docs/demo.gif)
 
+Built on top of the REPRL code from [Fuzzilli](https://github.com/googleprojectzero/fuzzilli).
+
 This useful little tool is a byproduct of my exploration into javascript engine fuzzing. It uses
 many of the same techniques that popular fuzzing tools utilise for test corpus minimization, just taken
 to an extreme degree.
